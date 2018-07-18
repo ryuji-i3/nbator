@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>NBAtor</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/nbator.css">
+    <link href="img/nbator.png" rel="shortcut icon">
+    <link href="img/nbator.png" rel="apple-touch-icon">
+    <script src="js/jquery.min.js"></script>
+  </head>
+
+  <body>
+    <div class="title">
+      <h3>NBAtor</h3>
+      <p>
+        エヌビエーター君があなたが思い浮かべた、有名なNBA選手をだいたいあててくれます！
+      </p>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 nbator-img">
+          <img src="./img/nbator.png" alt="エヌビエーターくん" />
+        </div>
+
+        <div class="col-md-6 introduction">
+          <p>僕の名前は<strong>エヌビエーター</strong>
+             あなたが思い浮かべたNBA選手を当てられるよ！<br>
+             いくつかの質問は僕好みの回答になっているから、間違ってても怒らないでね！！<br>
+             NBA選手が分からない方は、あの有名なバスケ漫画でも大丈夫！
+         </p>
+          <button id="start" type="button" class="btn btn-primary search">START</button>
+        </div>
+        <!-- 結果表示箇所 -->
+        <div class="col-md-6 result-area">
+          <div id="result"></div>
+          <button id="restart" type="button" class="btn btn-primary" onclick="location.reload();">もう一回</button>
+        </div>
+    
+        <!-- 質問箇所 -->
+        <form>
+          <div id="american" class="question col-md-6"><p>アメリカ人？</p>
+            <input type="button" value="はい" class="btn btn-primary search yes">
+            <input type="button" value="いいえ" class="btn btn-primary search no">
+            <input type="button" value="分からない" class="btn btn-primary unknown">
+          </div>
+          <div id="thirty_years_over" class="question col-md-6"><p>30歳以上？</p>
+            <input type="button" value="はい" class="btn btn-primary search yes">
+            <input type="button" value="いいえ" class="btn btn-primary search no">
+            <input type="button" value="分からない" class="btn btn-primary unknown">
+          </div>
+          <div id="active_player" class="question col-md-6"><p>現役？</p>
+            <input type="button" value="はい" class="btn btn-primary search yes">
+            <input type="button" value="いいえ" class="btn btn-primary search no">
+            <input type="button" value="分からない" class="btn btn-primary unknown">
+          </div>
+          <div id="height_over_2meters" class="question col-md-6"><p>身長は２メートル以上？</p>
+            <input type="button" value="はい" class="btn btn-primary search yes">
+            <input type="button" value="いいえ" class="btn btn-primary search no">
+            <input type="button" value="分からない" class="btn btn-primary unknown">
+          </div>
+          <div id="champion" class="question col-md-6"><p>NBAで優勝したことがある？</p>
+            <input type="button" value="はい" class="btn btn-primary search yes">
+            <input type="button" value="いいえ" class="btn btn-primary search no">
+            <input type="button" value="分からない" class="btn btn-primary unknown">
+          </div>
+          <div id="god" class="question col-md-6"><p>「バスケの神様」とよばれていた？</p>
+            <input type="button" value="はい" class="btn btn-primary search yes">
+            <input type="button" value="いいえ" class="btn btn-primary search no">
+            <input type="button" value="分からない" class="btn btn-primary unknown">
+          </div>
+          <div id="shirt_number" class="question col-md-6"><p>背番号は1桁？</p>
+            <input type="button" value="はい" class="btn btn-primary search yes">
+            <input type="button" value="いいえ" class="btn btn-primary search no">
+            <input type="button" value="分からない" class="btn btn-primary unknown">
+          </div>
+          <div id="position" class="question col-md-6"><p>ポジションは？</p>
+            <label><input type="radio" value="PG" name="posi" checked="checked">ポイントガード(宮城)</label>
+            <label><input type="radio" value="SG" name="posi">シューティングガード(三井)</label>
+            <label><input type="radio" value="SF" name="posi">スモールフォワード(流川)</label>
+            <label><input type="radio" value="PF" name="posi">パワーフォワード(桜木)</label>
+            <label><input type="radio" value="C" name="posi">センター(赤木)</label>
+            <input type="button" value="決定" class="btn btn-primary search yes">
+          </div>
+          <div id="uniform_color" class="question col-md-6"><p>印象的なユニフォームの色は何色系？</p>
+            <label><input type="radio" value="赤" name="unif" checked="checked">赤</label>
+            <label><input type="radio" value="青" name="unif">青</label>
+            <label><input type="radio" value="黄" name="unif">黄</label>
+            <label><input type="radio" value="緑" name="unif">緑</label>
+            <label><input type="radio" value="黒" name="unif">黒</label>
+            <label><input type="radio" value="白" name="unif">白</label>
+            <input type="button" value="決定" class="btn btn-primary search yes">
+          </div>
+          <div id="good_play" class="question col-md-6"><p>印象的なプレイは？</p>
+            <label><input type="radio" value="1" name="good" checked="checked">スラムダンク</label>
+            <label><input type="radio" value="2" name="good">ジャンプシュート</label>
+            <label><input type="radio" value="3" name="good">スリーポイント</label>
+            <label><input type="radio" value="4" name="good">クロスオーバー</label>
+            <label><input type="radio" value="5" name="good">フローター</label>
+            <label><input type="radio" value="6" name="good">ノールックパス</label>
+            <label><input type="radio" value="7" name="good">リバウンド</label>
+            <label><input type="radio" value="8" name="good">ユーロステップ</label>
+            <label><input type="radio" value="9" name="good">ブロック</label>
+            <label><input type="radio" value="10" name="good">レイアップ</label>
+            <label><input type="radio" value="11" name="good">フックシュート</label>
+            <input type="button" value="決定" class="btn btn-primary search yes">
+          </div>
+          <div id="play_style" class="question col-md-6"><p>当てはまる性格(作戦)は？</p>
+            <label><input type="radio" value="1" name="play" checked="checked">一人でガンガンいこうぜ</label>
+            <label><input type="radio" value="2" name="play">周りを活かしてバッチリがんばる</label>
+            <label><input type="radio" value="3" name="play">スリーポイントはつかうな</label>
+            <label><input type="radio" value="4" name="play">勝負所は自分にめいれいさせろ</label>
+            <input type="button" value="決定" class="btn btn-primary search yes">
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      // ランダムな数字を生成する範囲の定義　min - max
+      // max値は質問数と同数
+      var min = 1;
+      var max = 11;
+      // 最後の質問フラグ
+      var isLastQuestion = false;
+      // 次の質問を格納する変数
+      var nextQuestion;
+
+      $(function(){
+        // ページが更新した場合、locaSorageをクリア
+        localStorage.clear(); 
+        // 「START」ボタン押下時に、「START」ボタンを非表示にする
+        $("#start").on("click", function(){
+          $("#start, .introduction").hide();
+        });
+
+        // 回答結果をローカルストレージに保存する
+        (function(){
+          $("#american .yes").on("click", function(){
+              localStorage.setItem("american", "yes");
+          });
+          $("#american .no").on("click", function(){
+              localStorage.setItem("american", "no");
+          });
+          $("#american .unknown").on("click", function(){
+              localStorage.setItem("american", "unknown");
+          });
+          $("#thirty_years_over .yes").on("click", function(){
+              localStorage.setItem("thirty_years_over", "yes");
+          });
+          $("#thirty_years_over .no").on("click", function(){
+              localStorage.setItem("thirty_years_over", "no");
+          });
+          $("#thirty_years_over .unknown").on("click", function(){
+              localStorage.setItem("thirty_years_over", "unknown");
+          });
+          $("#active_player .yes").on("click", function(){
+              localStorage.setItem("active_player", "yes");
+          });
+          $("#active_player .no").on("click", function(){
+              localStorage.setItem("active_player", "no");
+          });
+          $("#active_player .unknown").on("click", function(){
+              localStorage.setItem("active_player", "unknown");
+          });
+          $("#height_over_2meters .yes").on("click", function(){
+              localStorage.setItem("height_over_2meters", "yes");
+          });
+          $("#height_over_2meters .no").on("click", function(){
+              localStorage.setItem("height_over_2meters", "no");
+          });
+          $("#height_over_2meters .unknown").on("click", function(){
+              localStorage.setItem("height_over_2meters", "unknown");
+          });
+          $("#champion .yes").on("click", function(){
+              localStorage.setItem("champion", "yes");
+          });
+          $("#champion .no").on("click", function(){
+              localStorage.setItem("champion", "no");
+          });
+          $("#champion .unknown").on("click", function(){
+              localStorage.setItem("champion", "unknown");
+          });
+          $("#god .yes").on("click", function(){
+              localStorage.setItem("god", "yes");
+          });
+          $("#god .no").on("click", function(){
+              localStorage.setItem("god", "no");
+          });
+          $("#god .unknown").on("click", function(){
+              localStorage.setItem("god", "unknown");
+          });
+          $("#shirt_number .yes").on("click", function(){
+              localStorage.setItem("shirt_number", "1");
+          });
+          $("#shirt_number .no").on("click", function(){
+              localStorage.setItem("shirt_number", "2");
+          });
+          $("#shirt_number .unknown").on("click", function(){
+              localStorage.setItem("shirt_number", "1 2");
+          });
+          $("#position .yes").on("click", function(){
+              var positionVal = $("input[name='posi']:checked").val();
+              localStorage.setItem("position", positionVal);
+          });
+          $("#uniform_color .yes").on("click", function(){
+              var uniformVal = $("input[name='unif']:checked").val();
+              localStorage.setItem("uniform_color", uniformVal);
+          });
+          $("#good_play .yes").on("click", function(){
+              var goodVal = $("input[name='good']:checked").val();
+              localStorage.setItem("good_play", goodVal);
+          });
+          $("#play_style .yes").on("click", function(){
+              var playVal = $("input[name='play']:checked").val();
+              localStorage.setItem("play_style", playVal);
+          });
+        })();   
+
+        // 回答した場合、まだ質問がされていない質問を表示
+        (function(){
+          $(".search, .unknown").on("click", function(){
+            // 現在表示されている質問を非表示
+            $(".question").hide();
+            // 最後の質問の場合、最後の質問フラグを立てて、検索処理を実行
+            if(localStorage.length >= max) {
+              search();
+              isLastQuestion = true;
+            }
+            // 質問をランダムで表示、既に出題された質問は表示させないようにする
+            // ※1000回ループさせて重複しないデータを探しているが、質問が多くなる場合は、ロジックを考え直す必要あり
+            for (var i = 0; i < 1000; ++i) {
+              // min - max値までの、ランダムな数字を生成
+              var showPageNo = Math.floor(Math.random() * (max + 1 - min)) + min;
+
+              // localStorageのデータに登録されている質問の場合、やり直す
+              switch (showPageNo){
+                case 1:
+                  if (localStorage.getItem("american") !== null) {
+                    continue;
+                  } else {
+                    nextQuestion = "#american";
+                    break;
+                  }
+                case 2:
+                  if (localStorage.getItem("thirty_years_over") !== null) {
+                    continue;
+                  } else {
+                    nextQuestion = "#thirty_years_over";
+                    break;
+                  }
+                case 3:
+                  if (localStorage.getItem("active_player") !== null) {
+                    continue;
+                  } else {
+                    nextQuestion = "#active_player";
+                    break;
+                  }
+                case 4:
+                  if (localStorage.getItem("height_over_2meters") !== null) {
+                    continue;
+                  } else {
+                    nextQuestion = "#height_over_2meters";
+                    break;
+                  }
+                case 5:
+                  if (localStorage.getItem("champion") !== null) {
+                    continue;
+                  } else {
+                    nextQuestion = "#champion";
+                    break;
+                  }
+                case 6:
+                  if (localStorage.getItem("god") !== null) {
+                    continue;
+                  } else {
+                    nextQuestion = "#god";
+                    break;
+                  }
+                case 7:
+                  if (localStorage.getItem("shirt_number") !== null) {
+                    continue;
+                  } else {
+                    nextQuestion = "#shirt_number";
+                    break;
+                  }
+                case 8:
+                  if (localStorage.getItem("position") !== null) {
+                    continue;
+                  } else {
+                    nextQuestion = "#position";
+                    break;
+                  }
+                case 9:
+                  if (localStorage.getItem("uniform_color") !== null) {
+                    continue;
+                  } else {
+                    nextQuestion = "#uniform_color";
+                    break;
+                  }
+                case 10:
+                  if (localStorage.getItem("good_play") !== null) {
+                    continue;
+                  } else {
+                    nextQuestion = "#good_play";
+                    break;
+                  }
+                default:
+                  if (localStorage.getItem("play_style") !== null) {
+                    continue;
+                  } else {
+                    nextQuestion = "#play_style";
+                    break;
+                  }
+                }
+              break;
+            }
+          });
+        })();        
+
+        // localStorageに一定以上データがたまった場合に、検索を実行させる
+        // 「はい いいえ 決定」が押下された場合にlocalStorageをチェックする
+        (function(){
+          $('.search').on("click", function(){
+            // 最後の質問の場合は、「わからない」が選択されても、検索を実行させる
+            if(isLastQuestion) {
+              return false;
+            }
+            // localStorageに登録されているvalueの値をカウントする。またvalueの値が存在するデータを「searchData」に登録する
+            let count = 0; 
+            let values = ["american","thirty_years_over","active_player","height_over_2meters","champion","god","shirt_number","position","uniform_color","good_play","play_style"];
+            searchData = {};
+            for (var i=0; i < values.length; ++i ) {
+              var checkDate = localStorage.getItem(values[i]);
+              if (checkDate == "unknown" || checkDate == null) {
+                continue;
+              }
+              ++count;
+              searchData[values[i]] = checkDate;
+            }
+            // localStorageにデータが3つ以上ある場合は検索する
+            if (count >= 3){
+              search();
+            } else {
+              $(nextQuestion).show();
+              return false;
+            }
+          });
+        })();   
+
+        // 「わからない」が押下された場合は、次の質問を表示
+        (function(){
+          $('.unknown').on("click", function(){
+            // 最後の質問の場合は処理をしない
+            if(isLastQuestion) {
+              return false;
+            }
+            $(nextQuestion).show();
+          });
+        })();
+  
+        // localStorageの値からURLを組み立てる
+        function getUrl() {
+          let url = "./nbatorsearch.php/?locale=ja";
+          for (var key in searchData) {
+            url = url + "&" + key + "=" + searchData[key];
+          }
+          // 最後の質問の場合 最後の質問の判別値を設定する
+          if(localStorage.length >= max){
+            url = url + "&last=yes";
+          }
+          return url;
+        }
+  
+        // ajax通信 ElasticSearchで検索
+        function search() {
+          var url = getUrl();
+          $.ajax({
+            "type": "get",
+            "url": url,
+            "success": function(msg) {
+              setData(msg);
+            }
+          });
+        } 
+
+        // 検索結果によって処理を分岐
+        function setData(name) {
+          // 結果が0件の場合
+          if(name == "false") {
+            $("#result").text("分かりませんでした…");
+            $(".result-area").show();
+            $("#restart").show();
+          // 結果が複数の場合
+          } else if (name == "retry") {
+            $(nextQuestion).show();
+          // 結果が1件の場合 または、全ての質問を回答した場合
+          } else {
+            $("#result").text(name);
+            $(".result-area").show();
+            $("#restart").show();
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

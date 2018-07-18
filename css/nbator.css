@@ -1,0 +1,153 @@
+@charset "utf-8";
+/* NBAtor */
+
+/* 質問を隠す */
+.question {
+    display: none;
+}
+
+/* 再読み込みボタンを隠す */
+#restart {
+    display: none;
+}
+
+/* 背景色 */
+body {
+    background-color: #bee5cf !important;
+    background: #ddd url(../img/background.jpg) no-repeat top center;
+    background-size: 100% auto;
+}
+
+/* タイトル */
+.title {
+    padding: 0.5rem 2rem;
+    color: #FFF;
+    background-color: #007bff;
+    text-align: center;
+}
+
+.title p {
+    margin: 0;
+}
+
+/* エヌビエーターくん */
+.nbator-img img {
+    width: 80%;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 767px) {
+  .nbator-img img {
+      width: 36%;
+      margin: 0 32%;
+  }
+}
+
+/* 説明文 */
+.introduction p {
+    color: #19542c;
+    font-size: 16px;
+    background-color: rgba(255,255,255,0.85);
+    padding: 1rem;
+    margin: 10% 5% 10% -5%;
+}
+
+@media screen and (max-width: 767px) {
+  .introduction p {
+      margin: 10% 0;
+  }
+}
+
+#start {
+    padding: 0.5rem;
+    width: 100%;
+    margin: 0 5% 0 -5%;
+}
+
+@media screen and (max-width: 767px) {
+  button#start {
+      margin: 0 0 5% 0;
+ }
+}
+/* 質問 */
+form {
+    width: 45%;
+}
+
+@media screen and (max-width: 767px) {
+  form {
+      width: 100%;
+  }
+}
+
+.question {
+    display: none;
+    font-size: 16px;
+    padding: 1rem;
+    margin: 10% 1%;
+    max-width: 100%;
+    background-color: rgba(255,255,255,0.85);
+}
+
+@media screen and (max-width: 767px) {
+  .question {
+      margin: 5% 0;
+  }
+}
+.question .search {
+    width: 100%;
+    margin: 5% 0;
+}
+.question .unknown {
+    width: 100%;
+    margin: 5% 0;
+}
+
+input[type="radio"] {
+    position: relative;
+    margin-right: 0.2rem;
+}
+
+#good_play label{
+    width: 45%;
+}
+
+#position label{
+    width: 100%;
+}
+
+#uniform_color label{
+    width: 30%;
+}
+
+#play_style label{
+    width: 100%;
+}
+
+/* 結果 */
+.result-area {
+    display: none;
+    font-size: 16px;
+    padding: 1rem;
+    max-width: 100%;
+    background-color: rgba(255,255,255,0.85);
+    margin: 10% -5%;
+    height: 25%;
+}
+
+@media screen and (max-width: 767px) {
+  .result-area {
+      margin: 5% 0;
+  }
+}
+
+#restart {
+    width: 100%;
+    margin: 5% 0;
+}
+
+#result {
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: bold;
+}
